@@ -4,7 +4,5 @@ return {
     Text = nil,
     Checkbox = nil,
     Dropdown = nil,
-    Slider = nil,
-    
-    
+    Slider = nil,   
 }

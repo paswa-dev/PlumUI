@@ -1,7 +1,7 @@
 --// This is a module
 local runService = game:GetService("RunService")
-local aDynamicElement = require(script.dElement)
-local aProvidedElement = require(script.pElements)
+local aDynamicElement = require(script.dynamicElement)
+local aProvidedElement = require(script.providedElements)
 local plum = {
     dLoopEvent = runService.RenderStepped,
     dLoopEventObserver = Instance.new("BindableEvent")
@@ -45,13 +45,13 @@ function plum.dElement(eObject) -- Add reference variable and it will be set.
 end
 
 function plum.sElement(eName, eAttributes, eParent)
-    local _, response = pcall(Instance.new, eName)
-    if response then
-        _setProperties(response, eAttributes)
+    local _, iResponse = pcall(Instance.new, eName)
+    if iResponse then
+        _setProperties(iResponse, eAttributes)
     else
-        error(response)
+        error(iResponse)
     end
-    return response
+    return iResponse
 end
 
 if plum.dLoopStarted == false then
