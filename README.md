@@ -53,7 +53,7 @@ end)
 ## Experimental
 - Sequential Element Creation (Syntax)
 ```lua
-plum.sequence(function(begin, end, plum)
+plum.sequence(function(begin, end)
   plum.sElement("Frame")
   -- Parents to Frame
   begin()
