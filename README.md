@@ -49,3 +49,17 @@ end)
 
 > [!WARNING]
 > `Instance.new` is recommend if you are just creating a single component with no properties/extensions. Do not use `plum.sElement` since it has extra overhead for its protected call.
+
+## Experimental
+- Sequential Element Creation (Syntax)
+```lua
+plum.sequence(function(begin, end, plum)
+  plum.sElement("Frame")
+  -- Parents to Frame
+  begin()
+    plum.sElement("TextButton")
+    begin() -- Parents to TextButton
+      plum.sElement("TextLabel")
+    end()
+  end()
+end)
