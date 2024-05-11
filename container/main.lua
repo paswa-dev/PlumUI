@@ -11,6 +11,32 @@ local plum = {
 -- TODO
 -- loopEventObserver should probably be made into a seperate portion of code.
 -- loopEventObserver should have private data and a Middleman to manipulate data.
+-- pElement - Prepared Element
+-- dElement - Dynamic Element
+-- sElement/element - Static Element
+
+local function _setProperties(object, properties)
+    for index, value in next, eAttributes do
+        if type(index) == "function" then
+            index(object, value)
+        end
+        response[index] = value
+    end
+end
+
+function plum.Event(event_name)
+    return function(eElement, callback)
+        local event
+        event = eElement[event_name]
+        if event then
+            event = event:Connect(callback)
+        end
+    end
+end
+
+function plum.aChild(eElement, child_params)
+
+end
 
 function plum.Child(parent, child)
     child.Parent = parent
@@ -23,12 +49,7 @@ end
 function plum.element(eName, eAttributes, eParent)
     local _, response = pcall(Instance.new, eName)
     if response then
-        for index, value in next, eAttributes do
-            if type(index) == "function" then
-                index(response, value)
-            end
-            response[index] = value
-        end
+        _setProperties(response, eAttributes)
     else
         error(response)
     end
