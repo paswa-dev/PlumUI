@@ -44,5 +44,6 @@ end)
 ```
 > [!NOTE]
 > You cannot index dynamicElement for your original element. E.g `dynamicElement.Name` will error!
+
 > [!WARNING]
 > `Instance.new` is recommend if you are just creating a single component with no properties/extensions. Do not use `plum.sElement` since it has extra overhead for its protected call.
