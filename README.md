@@ -19,12 +19,12 @@ UI Library for Reactive UI components. Uses Roblox Luau.
 local element = plum.sElement("Frame",{
   BackgroundColor3 = Color3.new(1, 0.2, 1),
   [plum.Child "Frame"] = {
-    name = "MyChild"
+    Name = "MyChild"
   },
   [plum.aChild] = {
     name = "MyChild"
     properties = {
-      name = "Changed MyChild"
+      Name = "Changed MyChild"
     }
   },
   [plum.Event "MouseEnter"] = function()
