@@ -16,7 +16,7 @@ UI Library for Reactive UI components. Uses Roblox Luau.
   - pElement (Plum/Provided Element)
 - Element Manipulation (Example)
 ```lua
-local element = plum.sElement("Frame"){
+local element = plum.sElement("Frame",{
   [plum.Child "Frame"] = {
     name = "MyChild"
   },
@@ -30,11 +30,11 @@ local element = plum.sElement("Frame"){
     print("Hovered")
   end,
   BackgroundColor3 = Color3.new(1, 0.2, 1)
-}
+})
 ```
 - Dynamic Element
 ```lua
-local myElement = plum.sElement("Frame"){}
+local myElement = plum.sElement("Frame") -- You could use Instance.new
 local dynamicElement = plum.dElement(myElement)
 local i = 0
 dynamicElement:Connect(function(object)
@@ -44,3 +44,4 @@ end)
 ```
 > [!NOTE]
 > You cannot index dynamicElement for your original element. E.g `dynamicElement.Name` will error!
+> Instance.new is recommend if you are just creating a single component with no properties/extensions. Do not use plum.sElement since it has extra overhead for its protected call.
