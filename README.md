@@ -17,6 +17,7 @@ UI Library for Reactive UI components. Uses Roblox Luau.
 - Element Manipulation (Example)
 ```lua
 local element = plum.sElement("Frame",{
+  BackgroundColor3 = Color3.new(1, 0.2, 1),
   [plum.Child "Frame"] = {
     name = "MyChild"
   },
@@ -28,10 +29,11 @@ local element = plum.sElement("Frame",{
   },
   [plum.Event "MouseEnter"] = function()
     print("Hovered")
-  end,
-  BackgroundColor3 = Color3.new(1, 0.2, 1)
+  end
 })
 ```
+> [!TIP]
+> Ensure you state your properties in the order you want them to initialize. **Ensure you initialize properties before extensions**
 - Dynamic Element
 ```lua
 local myElement = plum.sElement("Frame") -- You could use Instance.new
