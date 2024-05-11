@@ -1,52 +1,50 @@
 --// This is a module
 local runService = game:GetService("RunService")
-local dynamicElement = require(script.dElement)
-local providedElements = require(script.pElements)
+local aDynamicElement = require(script.dElement)
+local aProvidedElement = require(script.pElements)
 local plum = {
     dLoopEvent = runService.RenderStepped,
     dLoopEventObserver = Instance.new("BindableEvent")
     dLoopStarted = false
 }
+---- Plum (Events)
+plum.Lifecycle = plum.dLoopEventObserver
 
--- TODO
--- loopEventObserver should probably be made into a seperate portion of code.
--- loopEventObserver should have private data and a Middleman to manipulate data.
--- pElement - Prepared Element
--- dElement - Dynamic Element
--- sElement/element - Static Element
-
+---- Internal
 local function _setProperties(object, properties)
     for index, value in next, eAttributes do
         if type(index) == "function" then
             index(object, value)
         end
-        response[index] = value
+        object[index] = value
     end
 end
-
-function plum.Event(event_name)
+---- Property Extensions (Functions)
+function plum.Event(rsName) -- (Remote Signal Name)
     return function(eElement, callback)
-        local event
-        event = eElement[event_name]
-        if event then
-            event = event:Connect(callback)
+        local rsEvent
+        rsEvent = eElement[event_name]
+        if rsEvent then
+            rsEvent:Connect(callback)
         end
     end
 end
 
-function plum.aChild(eElement, child_params)
-
+function plum.aChild(eElement, args)
+    if args.name and args.properties then
+        _setProperties(eElement[args.name], args.properties)
+    end
 end
 
 function plum.Child(parent, child)
     child.Parent = parent
 end
-
-function plum.dynamic(eObject) -- Add reference variable and it will be set.
-    return dynamicElement.new(eObject, plum.dLoopEventObserver)
+---- Plum Methods
+function plum.dElement(eObject) -- Add reference variable and it will be set.
+    return aDynamicElement.new(eObject, plum.dLoopEventObserver)
 end
 
-function plum.element(eName, eAttributes, eParent)
+function plum.sElement(eName, eAttributes, eParent)
     local _, response = pcall(Instance.new, eName)
     if response then
         _setProperties(response, eAttributes)
@@ -63,4 +61,4 @@ if plum.dLoopStarted == false then
     end)
 end
 
-return setmetatable(plum, {__index = providedElements}) -- You can index for certain elements and create them via that.
+return setmetatable(plum, {__index = aProvidedElement}) -- You can index for certain elements and create them via that.
