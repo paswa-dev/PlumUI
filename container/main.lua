@@ -44,7 +44,7 @@ function plum.dElement(eObject) -- Add reference variable and it will be set.
     return aDynamicElement.new(eObject, plum.dLoopEventObserver)
 end
 
-function plum.sElement(eName, eAttributes, eParent)
+function plum.sElement(eName, eAttributes)
     local _, iResponse = pcall(Instance.new, eName)
     if iResponse then
         _setProperties(iResponse, eAttributes)
