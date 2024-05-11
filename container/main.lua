@@ -5,10 +5,12 @@ local aProvidedElement = require(script.providedElements)
 local plum = {
     dLoopEvent = runService.RenderStepped,
     dLoopEventObserver = Instance.new("BindableEvent")
-    dLoopStarted = false
+    dLoopStarted = false,
+    rsElementCreated = Instance.new("BindableEvent")
 }
 ---- Plum (Events)
 plum.Lifecycle = plum.dLoopEventObserver
+plum.ElementCreated = plum.rsElementCreated
 
 ---- Internal
 local function _setProperties(object, properties)
@@ -51,6 +53,7 @@ function plum.sElement(eName, eAttributes)
     else
         error(iResponse)
     end
+    rsElementCreated:Fire(iResponse)
     return iResponse
 end
 
