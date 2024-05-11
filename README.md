@@ -14,8 +14,33 @@ UI Library for Reactive UI components. Uses Roblox Luau.
   - sElement (Static Element
   - dElement (Dynamic Element)
   - pElement (Plum/Provided Element)
-- Element Manipulation
+- Element Manipulation (Example)
 ```lua
-local sElement("Frame"){
-  
+local element = plum.sElement("Frame"){
+  [plum.Child "Frame"] = {
+    name = "MyChild"
+  },
+  [plum.aChild] = {
+    name = "MyChild"
+    properties = {
+      name = "Changed MyChild"
+    }
+  },
+  [plum.Event "MouseEnter"] = function()
+    print("Hovered")
+  end,
+  BackgroundColor3 = Color3.new(1, 0.2, 1)
 }
+```
+- Dynamic Element
+```lua
+local myElement = plum.sElement("Frame"){}
+local dynamicElement = plum.dElement(myElement)
+local i = 0
+dynamicElement:Connect(function(object)
+  i += 1
+  object.Name = ("Water %d"):format(i)
+end)
+```
+> [!NOTE]
+> You cannot index dynamicElement for your original element. E.g `dynamicElement.Name` will error!
